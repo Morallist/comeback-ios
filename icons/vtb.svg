@@ -1,7 +1,8 @@
-﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
   <rect width="512" height="512" rx="115" fill="#002882"/>
   <!-- VTB 3 Cyan Stripes -->
   <path d="M130 180 L230 180 L382 332 L282 332 Z" fill="#00AAFF"/>
   <path d="M180 180 L280 180 L382 282 L282 282 Z" fill="#0088FF"/>
   <path d="M130 230 L230 230 L332 332 L232 332 Z" fill="#55CCFF"/>
 </svg>
+

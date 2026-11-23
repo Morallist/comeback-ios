@@ -1,6 +1,7 @@
-﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
   <rect width="512" height="512" rx="115" fill="#FFDD2D"/>
   <!-- T-Bank Black Shield with T -->
   <path d="M256 90 L380 130 C380 280 290 380 256 422 C222 380 132 280 132 130 Z" fill="#1C1C1E"/>
   <path d="M185 170 H327 V205 H276 V345 H236 V205 H185 Z" fill="#FFDD2D"/>
 </svg>
+
