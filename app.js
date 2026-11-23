@@ -482,44 +482,95 @@ window.openAppModal = function(appId) {
 document.getElementById('closeModal').addEventListener('click', () => {
   triggerHaptic('selection');
   appModal.style.display = 'none';
+  const statusBox = document.getElementById('downloadStatusBox');
+  if (statusBox) statusBox.style.display = 'none';
 });
 
-// App Install Trigger
-document.getElementById('startInstallBtn').addEventListener('click', () => {
-  triggerHaptic('success');
+// Real App Download Trigger
+document.getElementById('startInstallBtn').addEventListener('click', async () => {
+  triggerHaptic('impact');
   
   if (!currentAppleUser) {
     appModal.style.display = 'none';
-    authModal.style.display = 'flex';
-    if (tg) {
-      tg.showAlert('Для загрузки оригинального дистрибутива из App Store сначала войдите в свой Apple ID.');
+    showAuthModal();
+    if (tg?.showAlert) {
+      tg.showAlert('Для выгрузки оригинального дистрибутива из App Store сначала войдите в свой Apple ID.');
     } else {
-      alert('Сначала войдите в свой Apple ID для подтверждения покупки.');
+      alert('Сначала войдите в свой Apple ID для подтверждения лицензии.');
     }
     return;
   }
 
-  if (tg) {
-    tg.showPopup({
-      title: `Возврат ${activeModalApp.name}`,
-      message: `Лицензия для аккаунта ${currentAppleUser} подтверждена! Сейчас откроется Safari для установки приложения на рабочий стол.`,
-      buttons: [
-        { id: 'ok', type: 'default', text: 'Установить в Safari' },
-        { type: 'cancel', text: 'Отмена' }
-      ]
-    }, (btnId) => {
-      if (btnId === 'ok') {
-        window.open(`https://apple.com`, '_blank');
-      }
+  const startBtn = document.getElementById('startInstallBtn');
+  const statusBox = document.getElementById('downloadStatusBox');
+
+  statusBox.style.display = 'block';
+  statusBox.style.background = 'rgba(10, 132, 255, 0.15)';
+  statusBox.style.border = '1px solid rgba(10, 132, 255, 0.4)';
+  statusBox.style.color = '#5ac8fa';
+  statusBox.innerHTML = `
+    <strong>⏳ Выгрузка из App Store...</strong><br>
+    Запрашиваю лицензию для <strong>${activeModalApp.name}</strong> у Apple Store API.<br>
+    Скачивание официального .ipa пакета может занять 1–2 минуты.
+  `;
+
+  startBtn.disabled = true;
+  startBtn.innerHTML = `<span>Выкачивание из Apple...</span>`;
+
+  try {
+    const chatId = tg?.initDataUnsafe?.user?.id || null;
+    const response = await fetch('/api/app/download', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        bundleId: activeModalApp.bundleId,
+        appId: activeModalApp.appId,
+        name: activeModalApp.name,
+        chatId: chatId
+      })
     });
-  } else {
-    alert(`Запуск установки ${activeModalApp.name} через Safari для аккаунта ${currentAppleUser}!`);
+
+    const data = await response.json();
+
+    if (response.ok && data.status === 'success') {
+      triggerHaptic('success');
+      statusBox.style.background = 'rgba(52, 199, 89, 0.15)';
+      statusBox.style.border = '1px solid rgba(52, 199, 89, 0.4)';
+      statusBox.style.color = '#4cd964';
+      statusBox.innerHTML = `
+        🎉 <strong>Успешно выгружено!</strong><br>
+        Оригинальный пакет <strong>${activeModalApp.name}</strong> (${data.sizeMb}) сохранен.<br>
+        ${chatId ? '💬 Файл отправлен вам в чат бота в Telegram!' : '📁 Файл сохранен в папку downloads на вашем ПК.'}<br><br>
+        <a href="${data.downloadUrl}" target="_blank" style="display: inline-block; padding: 10px 18px; background: #34c759; color: #000; border-radius: 10px; font-weight: bold; text-decoration: none; margin-top: 4px;">📥 Скачать .IPA файл</a>
+      `;
+      startBtn.innerHTML = `<span>Успешно выкачано ✓</span>`;
+    } else {
+      triggerHaptic('impact');
+      statusBox.style.background = 'rgba(255, 59, 48, 0.15)';
+      statusBox.style.border = '1px solid rgba(255, 59, 48, 0.4)';
+      statusBox.style.color = '#ff6b6b';
+      statusBox.innerHTML = `
+        ❌ <strong>Ошибка App Store:</strong><br>
+        ${data.message || data.error || 'Не удалось скачать приложение.'}
+      `;
+      startBtn.disabled = false;
+      startBtn.innerHTML = `<span>Попробовать снова</span>`;
+    }
+  } catch (err) {
+    statusBox.style.background = 'rgba(255, 59, 48, 0.15)';
+    statusBox.style.border = '1px solid rgba(255, 59, 48, 0.4)';
+    statusBox.style.color = '#ff6b6b';
+    statusBox.innerHTML = `❌ <strong>Ошибка соединения с сервером:</strong><br>${err.message}`;
+    startBtn.disabled = false;
+    startBtn.innerHTML = `<span>Попробовать снова</span>`;
   }
 });
 
 // Auth Modal Open/Close
 function showAuthModal() {
   triggerHaptic('selection');
+  const alertEl = document.getElementById('authAlert');
+  if (alertEl) alertEl.style.display = 'none';
   authModal.style.display = 'flex';
 }
 
@@ -530,78 +581,179 @@ closeAuthModal.addEventListener('click', () => {
   authModal.style.display = 'none';
 });
 
-// Step 1: Submit Credentials
+// Check Server Auth Status on Startup
+async function checkAuthStatus() {
+  try {
+    const res = await fetch('/api/auth/status');
+    if (res.ok) {
+      const data = await res.json();
+      if (data.loggedIn && data.email) {
+        currentAppleUser = data.email;
+        localStorage.setItem('comeback_apple_user', data.email);
+        updateAuthUI();
+        return;
+      }
+    }
+  } catch (err) {
+    console.warn('Проверка статуса auth:', err.message);
+  }
+  currentAppleUser = null;
+  localStorage.removeItem('comeback_apple_user');
+  updateAuthUI();
+}
+
+// Step 1: Submit Real Apple Credentials to Backend (ipatool-cpp)
 submitAuthBtn.addEventListener('click', async () => {
   const email = appleIdInput.value.trim();
   const password = applePasswordInput.value.trim();
+  const alertEl = document.getElementById('authAlert');
 
   if (!email || !password) {
-    alert('Пожалуйста, введите Apple ID и пароль');
+    if (alertEl) {
+      alertEl.style.display = 'block';
+      alertEl.style.background = 'rgba(255, 59, 48, 0.15)';
+      alertEl.style.borderColor = 'rgba(255, 59, 48, 0.4)';
+      alertEl.style.color = '#ff6b6b';
+      alertEl.textContent = 'Пожалуйста, введите ваш Apple ID (email) и пароль.';
+    }
     return;
   }
 
   triggerHaptic('impact');
   submitAuthBtn.disabled = true;
   submitAuthBtn.innerHTML = `<span>Подключение к auth.itunes.apple.com...</span>`;
+  if (alertEl) alertEl.style.display = 'none';
 
   try {
-    // Attempt local API if available, or simulate authentic 2FA flow
     const response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
-    }).catch(() => null);
+    });
 
+    const data = await response.json();
     submitAuthBtn.disabled = false;
     submitAuthBtn.innerHTML = `<span>Войти в аккаунт Apple</span>`;
 
-    // Always transition to real 2FA verification step
-    authStep1.style.display = 'none';
-    authStep2.style.display = 'block';
-    twoFaCodeInput.focus();
+    if (data.status === '2fa_required') {
+      // Transition to Step 2 for authentic 2FA verification
+      if (alertEl) {
+        alertEl.style.display = 'block';
+        alertEl.style.background = 'rgba(10, 132, 255, 0.15)';
+        alertEl.style.borderColor = 'rgba(10, 132, 255, 0.4)';
+        alertEl.style.color = '#5ac8fa';
+        alertEl.textContent = data.message || 'Apple отправил 6-значный проверочный код. Введите его:';
+      }
+      authStep1.style.display = 'none';
+      authStep2.style.display = 'block';
+      twoFaCodeInput.focus();
+    } else if (response.ok && data.status === 'success') {
+      currentAppleUser = data.email || email;
+      localStorage.setItem('comeback_apple_user', currentAppleUser);
+      updateAuthUI();
+      triggerHaptic('success');
+      setTimeout(() => {
+        authModal.style.display = 'none';
+      }, 800);
+    } else {
+      if (alertEl) {
+        alertEl.style.display = 'block';
+        alertEl.style.background = 'rgba(255, 59, 48, 0.15)';
+        alertEl.style.borderColor = 'rgba(255, 59, 48, 0.4)';
+        alertEl.style.color = '#ff6b6b';
+        alertEl.textContent = data.message || 'Ошибка авторизации в Apple ID.';
+      }
+    }
   } catch (err) {
     submitAuthBtn.disabled = false;
     submitAuthBtn.innerHTML = `<span>Войти в аккаунт Apple</span>`;
-    authStep1.style.display = 'none';
-    authStep2.style.display = 'block';
-    twoFaCodeInput.focus();
+    if (alertEl) {
+      alertEl.style.display = 'block';
+      alertEl.style.background = 'rgba(255, 59, 48, 0.15)';
+      alertEl.style.borderColor = 'rgba(255, 59, 48, 0.4)';
+      alertEl.style.color = '#ff6b6b';
+      alertEl.textContent = 'Ошибка связи с сервером: ' + err.message;
+    }
   }
 });
 
-// Step 2: Submit 2FA Code
+// Step 2: Submit Real 2FA Code to Backend (ipatool-cpp)
 submitTwoFaBtn.addEventListener('click', async () => {
+  const email = appleIdInput.value.trim();
+  const password = applePasswordInput.value.trim();
   const code = twoFaCodeInput.value.trim();
+  const alertEl = document.getElementById('authAlert');
+
   if (code.length < 4) {
-    alert('Введите код подтверждения из 6 цифр');
+    if (alertEl) {
+      alertEl.style.display = 'block';
+      alertEl.style.background = 'rgba(255, 59, 48, 0.15)';
+      alertEl.style.borderColor = 'rgba(255, 59, 48, 0.4)';
+      alertEl.style.color = '#ff6b6b';
+      alertEl.textContent = 'Введите проверочный код (6 цифр).';
+    }
     return;
   }
 
-  triggerHaptic('success');
+  triggerHaptic('impact');
   submitTwoFaBtn.disabled = true;
-  submitTwoFaBtn.innerHTML = `<span>Проверка кода Apple...</span>`;
+  submitTwoFaBtn.innerHTML = `<span>Проверка кода в Apple...</span>`;
+  if (alertEl) alertEl.style.display = 'none';
 
-  setTimeout(() => {
-    const email = appleIdInput.value.trim() || 'apple.id@icloud.com';
-    currentAppleUser = email;
-    localStorage.setItem('comeback_apple_user', email);
-    
-    updateAuthUI();
+  try {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, authCode: code })
+    });
+
+    const data = await response.json();
     submitTwoFaBtn.disabled = false;
     submitTwoFaBtn.innerHTML = `<span>Подтвердить код</span>`;
 
-    if (tg) {
-      tg.showAlert(`✅ Успешно! Аккаунт ${email} авторизован. Теперь вы можете восстанавливать любые приложения.`);
+    if (response.ok && data.status === 'success') {
+      currentAppleUser = data.email || email;
+      localStorage.setItem('comeback_apple_user', currentAppleUser);
+      updateAuthUI();
+      triggerHaptic('success');
+      if (alertEl) {
+        alertEl.style.display = 'block';
+        alertEl.style.background = 'rgba(52, 199, 89, 0.15)';
+        alertEl.style.borderColor = 'rgba(52, 199, 89, 0.4)';
+        alertEl.style.color = '#4cd964';
+        alertEl.textContent = '✅ Авторизация в Apple ID успешно завершена!';
+      }
+      setTimeout(() => {
+        authModal.style.display = 'none';
+      }, 1000);
     } else {
-      alert(`✅ Успешно! Аккаунт ${email} авторизован.`);
+      if (alertEl) {
+        alertEl.style.display = 'block';
+        alertEl.style.background = 'rgba(255, 59, 48, 0.15)';
+        alertEl.style.borderColor = 'rgba(255, 59, 48, 0.4)';
+        alertEl.style.color = '#ff6b6b';
+        alertEl.textContent = data.message || 'Неверный проверочный код или код устарел.';
+      }
     }
-
-    authModal.style.display = 'none';
-  }, 1200);
+  } catch (err) {
+    submitTwoFaBtn.disabled = false;
+    submitTwoFaBtn.innerHTML = `<span>Подтвердить код</span>`;
+    if (alertEl) {
+      alertEl.style.display = 'block';
+      alertEl.style.background = 'rgba(255, 59, 48, 0.15)';
+      alertEl.style.borderColor = 'rgba(255, 59, 48, 0.4)';
+      alertEl.style.color = '#ff6b6b';
+      alertEl.textContent = 'Ошибка отправки кода: ' + err.message;
+    }
+  }
 });
 
-// Logout
-logoutBtn.addEventListener('click', () => {
+// Real Logout
+logoutBtn.addEventListener('click', async () => {
   triggerHaptic('selection');
+  try {
+    await fetch('/api/auth/logout', { method: 'POST' });
+  } catch (e) {}
   currentAppleUser = null;
   localStorage.removeItem('comeback_apple_user');
   appleIdInput.value = '';
@@ -636,5 +788,5 @@ document.getElementById('closeFaq').addEventListener('click', () => {
 });
 
 // Initial Setup
-updateAuthUI();
+checkAuthStatus();
 renderApps();
