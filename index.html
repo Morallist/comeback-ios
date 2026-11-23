@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Comeback — Возврат приложений на iPhone</title>
+  
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app-container">
+    
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Comeback</h1>
+          <span class="badge-ios">iOS Recovery</span>
+        </div>
+      </div>
+      <div class="device-pill">
+        <span class="pulse-dot"></span>
+        <span id="device-status">iPhone Ready</span>
+      </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-section">
+      <div class="hero-card">
+        <div class="hero-content">
+          <span class="hero-tag">Без ПК и проводов</span>
+          <h2>Твои приложения снова на iPhone</h2>
+          <p>Оригинальные версии банков, музыки и игр. Без вылетов через 7 дней.</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-val">100%</span>
+            <span class="stat-lbl">Оригинал</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-val">2 мин</span>
+            <span class="stat-lbl">Установка</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-val">Push</span>
+            <span class="stat-lbl">Работают</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Bar -->
+    <div class="search-wrapper">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Поиск приложений (Сбер, Т-Банк, VK)..." autocomplete="off">
+        <button id="clearSearch" class="clear-btn" style="display: none;">✕</button>
+      </div>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="categories-scroll">
+      <button class="cat-pill active" data-category="all">Все</button>
+      <button class="cat-pill" data-category="banks">🏦 Банки</button>
+      <button class="cat-pill" data-category="media">🎵 Музыка и видео</button>
+      <button class="cat-pill" data-category="social">💬 Соцсети</button>
+      <button class="cat-pill" data-category="nav">🧭 Карты</button>
+      <button class="cat-pill" data-category="tools">⚡️ Утилиты</button>
+    </div>
+
+    <!-- Apps Catalog Grid -->
+    <section class="catalog-section">
+      <div class="section-header">
+        <h3 id="catalogTitle">Популярные приложения</h3>
+        <span id="appsCount" class="counter-badge">12</span>
+      </div>
+      
+      <div id="appsGrid" class="apps-grid">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="info-section">
+      <h3>Почему Comeback безопасен?</h3>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">🛡</div>
+          <h4>Официальная база Apple</h4>
+          <p>Приложения скачиваются напрямую из App Store по твоей истории покупок.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">⚡️</div>
+          <h4>Без вылетов через неделю</h4>
+          <p>Это не тестовые сертификаты. Приложение остается на телефоне навсегда.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🔔</div>
+          <h4>Работают пуш-уведомления</h4>
+          <p>Все оповещения о списаниях, переводах и сообщения приходят штатно.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Padding for Floating Nav -->
+    <div style="height: 90px;"></div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-nav="catalog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        <span>Каталог</span>
+      </button>
+      <button class="nav-item" data-nav="guide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <span>Инструкция</span>
+      </button>
+      <button class="nav-item" data-nav="faq">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>FAQ</span>
+      </button>
+    </nav>
+
+    <!-- Modal for App Details & Installation -->
+    <div id="appModal" class="modal-backdrop" style="display: none;">
+      <div class="modal-sheet">
+        <button class="modal-close" id="closeModal">✕</button>
+        
+        <div class="modal-app-header">
+          <div id="modalAppIcon" class="modal-icon"></div>
+          <div class="modal-meta">
+            <h3 id="modalAppName">Название</h3>
+            <span id="modalAppCategory" class="modal-sub">Категория</span>
+            <div class="tag-row">
+              <span id="modalAppVersion" class="tag-pill">v15.0</span>
+              <span id="modalAppSize" class="tag-pill">120 MB</span>
+              <span class="tag-pill verified">✓ Оригинал</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <h4>О приложении</h4>
+          <p id="modalAppDesc">Описание...</p>
+
+          <h4>Как происходит возврат:</h4>
+          <div class="steps-list">
+            <div class="step-row">
+              <div class="step-num">1</div>
+              <div class="step-text">
+                <strong>Авторизация Apple ID</strong>
+                <span>Проверяется факт наличия лицензии в твоей истории покупок.</span>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">2</div>
+              <div class="step-text">
+                <strong>Переход в Safari</strong>
+                <span>iOS запрашивает оригинальный установочный пакет у Apple.</span>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">3</div>
+              <div class="step-text">
+                <strong>Установка на рабочий стол</strong>
+                <span>Иконка появляется на экране iPhone и готова к работе.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-box">
+            <button id="startInstallBtn" class="primary-btn">
+              <span>Вернуть на iPhone</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+            <span class="sub-guarantee">🔒 Безопасное подключение напрямую к Apple Store API</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for FAQ -->
+    <div id="faqModal" class="modal-backdrop" style="display: none;">
+      <div class="modal-sheet">
+        <button class="modal-close" id="closeFaq">✕</button>
+        <h3>Частые вопросы</h3>
+        <div class="faq-list">
+          <div class="faq-item">
+            <strong>Нужен ли компьютер или провод?</strong>
+            <p>Нет! Вся процедура выполняется исключительно с вашего iPhone прямо через браузер Safari.</p>
+          </div>
+          <div class="faq-item">
+            <strong>Приложение вылетит через 7 дней?</strong>
+            <p>Нет. Приложения устанавливаются через официальную лицензию App Store, поэтому они не имеют 7-дневного лимита и работают постоянно.</p>
+          </div>
+          <div class="faq-item">
+            <strong>Будут ли приходить пуш-уведомления?</strong>
+            <p>Да. В отличие от AltStore и бесплатных сертификатов, официальная лицензия поддерживает Apple Push Notifications штатно.</p>
+          </div>
+          <div class="faq-item">
+            <strong>А если я никогда не скачивал это приложение?</strong>
+            <p>Метод основан на истории покупок. Если у вас новый аккаунт, вы можете восстановить приложение с помощью Apple ID друга или родственника.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
