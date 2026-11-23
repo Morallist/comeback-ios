@@ -1,0 +1,11 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="moosicGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8A00"/>
+      <stop offset="100%" stop-color="#FF5100"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="115" fill="url(#moosicGrad)"/>
+  <!-- Headphones icon -->
+  <path d="M256 120 C175 120 110 185 110 266 V350 C110 375 130 395 155 395 H180 V280 H145 V266 C145 205 195 155 256 155 C317 155 367 205 367 266 V280 H332 V395 H357 C382 395 402 375 402 350 V266 C402 185 337 120 256 120 Z" fill="#FFFFFF"/>
+</svg>

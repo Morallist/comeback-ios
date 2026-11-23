@@ -18,8 +18,9 @@ function triggerHaptic(type = 'light') {
   }
 }
 
-// App Catalog Data
+// Expanded Authentic App Catalog
 const APPS = [
+  // БАНКИ И ФИНАНСЫ
   {
     id: 'sber',
     name: 'СберБанк Онлайн',
@@ -28,11 +29,10 @@ const APPS = [
     version: '15.15.0',
     size: '284 MB',
     badge: 'Топ №1',
-    iconColor: '#21A038',
-    iconText: '🟢',
-    desc: 'Официальный мобильный банк СберБанка. Управляйте переводами, картами, вкладами и платежами через СБП без ограничений.',
+    iconUrl: 'icons/sber.svg',
+    desc: 'Оригинальный мобильный банк СберБанка. Управляйте переводами, картами, вкладами и платежами через СБП без ограничений.',
     bundleId: 'ru.sberbank.sberbankonline',
-    source: 'App Store'
+    source: 'App Store (Оригинал)'
   },
   {
     id: 'tbank',
@@ -42,11 +42,10 @@ const APPS = [
     version: '6.28.0',
     size: '260 MB',
     badge: 'Популярно',
-    iconColor: '#FFDD2D',
-    iconText: '🟡',
-    desc: 'Официальный клиент Т-Банка: переводы, кэшбэк деньгами, инвестиции, связь и сервисы для жизни.',
+    iconUrl: 'icons/tbank.svg',
+    desc: 'Оригинальный клиент Т-Банка: мгновенные переводы, кэшбэк рублями, брокерский счет, связь и оплата услуг.',
     bundleId: 'com.tinkoff.mobile',
-    source: 'App Store'
+    source: 'App Store (Оригинал)'
   },
   {
     id: 'alfa',
@@ -56,11 +55,10 @@ const APPS = [
     version: '14.3.0',
     size: '240 MB',
     badge: 'Топ',
-    iconColor: '#EF3124',
-    iconText: '🔴',
-    desc: 'Умный мобильный банк от Альфа-Банка. Бесплатные платежи, карты, инвестиции и повышенный кэшбэк.',
+    iconUrl: 'icons/alfa.svg',
+    desc: 'Умный мобильный банк от Альфа-Банка. Бесплатные переводы без комиссий, инвестиции, кредитные карты и повышенный кэшбэк.',
     bundleId: 'ru.alfabank.mobile',
-    source: 'App Store'
+    source: 'App Store (Оригинал)'
   },
   {
     id: 'vtb',
@@ -70,12 +68,65 @@ const APPS = [
     version: '19.0.0',
     size: '290 MB',
     badge: 'Оригинал',
-    iconColor: '#002882',
-    iconText: '🔵',
-    desc: 'Официальное приложение банка ВТБ. Полный спектр финансовых услуг, оплата счетов и безопасность платежей.',
+    iconUrl: 'icons/vtb.svg',
+    desc: 'Официальное приложение банка ВТБ. Платежи по QR-коду, переводы родным, оплата штрафов и безопасность счетов.',
     bundleId: 'ru.vtb24.mobilebanking',
+    source: 'App Store (Оригинал)'
+  },
+  {
+    id: 'gpb',
+    name: 'Газпромбанк',
+    category: 'banks',
+    categoryName: 'Банки и финансы',
+    version: '4.18.0',
+    size: '225 MB',
+    badge: 'Оригинал',
+    iconUrl: 'icons/gpb.svg',
+    desc: 'Официальное мобильное приложение Газпромбанка. Вклады с высокой ставкой, дебетовые карты и переводы без комиссии.',
+    bundleId: 'ru.gpb.mobile',
+    source: 'App Store (Оригинал)'
+  },
+  {
+    id: 'sovcom',
+    name: 'Совкомбанк (Халва)',
+    category: 'banks',
+    categoryName: 'Банки и финансы',
+    version: '12.4.0',
+    size: '210 MB',
+    badge: 'Рассрочка',
+    iconUrl: 'icons/sovcom.svg',
+    desc: 'Карта рассрочки «Халва» и мобильный банк Совкомбанка. Покупки без переплат, вклады и платежи по СБП.',
+    bundleId: 'ru.sovcombank.halva',
+    source: 'App Store (Оригинал)'
+  },
+  {
+    id: 'ozonbank',
+    name: 'Ozon Банк',
+    category: 'banks',
+    categoryName: 'Банки и финансы',
+    version: '2.14.0',
+    size: '180 MB',
+    badge: 'Скидки',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/41/01/75/41017552-195d-caa1-a068-d6981882d921/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
+    desc: 'Ozon Карта со скидками до 30% на маркетплейсе Ozon и кэшбэком рублями на покупки вне маркетплейса.',
+    bundleId: 'ru.ozon.bank',
     source: 'App Store'
   },
+  {
+    id: 'raiffeisen',
+    name: 'Райффайзен Онлайн',
+    category: 'banks',
+    categoryName: 'Банки и финансы',
+    version: '10.5.0',
+    size: '215 MB',
+    badge: 'Банк',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/94/39/08/94390871-2d67-f58c-bb07-f952f44c4ec0/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
+    desc: 'Удобный и надежный банк для управления личными финансами, переводами за рубеж и валютными счетами.',
+    bundleId: 'ru.raiffeisen.mobile',
+    source: 'App Store'
+  },
+
+  // МУЗЫКА И МЕДИА
   {
     id: 'vkmusic',
     name: 'VK Музыка',
@@ -83,40 +134,11 @@ const APPS = [
     categoryName: 'Музыка и видео',
     version: '6.38.0',
     size: '145 MB',
-    badge: 'Музыка',
-    iconColor: '#0077FF',
-    iconText: '🎵',
-    desc: 'Миллионы треков, умные рекомендации, фоновое прослушивание и скачивание музыки прямо в память iPhone.',
+    badge: 'Хит',
+    iconUrl: 'icons/vkmusic.svg',
+    desc: 'Миллионы треков, умный Сниппет-радио, персональные плейлисты и прослушивание музыки офлайн без интернета.',
     bundleId: 'com.vk.vkclient.music',
-    source: 'App Store'
-  },
-  {
-    id: 'vk',
-    name: 'ВКонтакте',
-    category: 'social',
-    categoryName: 'Соцсети',
-    version: '8.60.0',
-    size: '210 MB',
-    badge: 'Соцсеть',
-    iconColor: '#0077FF',
-    iconText: '💬',
-    desc: 'Главная социальная сеть и мессенджер. Общение, клипы, истории, музыка и сообщества.',
-    bundleId: 'com.vk.vkclient',
-    source: 'App Store'
-  },
-  {
-    id: '2gis',
-    name: '2ГИС — Карты и навигатор',
-    category: 'nav',
-    categoryName: 'Карты и навигация',
-    version: '6.22.0',
-    size: '190 MB',
-    badge: 'Офлайн',
-    iconColor: '#17BE51',
-    iconText: '🧭',
-    desc: 'Офлайн-карты городов, точный навигатор для авто и пешеходов, детальные планы этажей торговых центров.',
-    bundleId: 'ru.dublgis.2GIS',
-    source: 'App Store'
+    source: 'App Store (Оригинал)'
   },
   {
     id: 'moosic',
@@ -125,26 +147,24 @@ const APPS = [
     categoryName: 'Музыка и видео',
     version: '6.38.0',
     size: '95 MB',
-    badge: 'Легенда',
-    iconColor: '#FF6B00',
-    iconText: '🎧',
-    desc: 'Легендарный плеер с функцией сохранения треков из ВК в кэш без рекламы и подписок.',
+    badge: 'Без рекламы',
+    iconUrl: 'icons/moosic.svg',
+    desc: 'Легендарный плеер с функцией бесплатного кэширования любых аудиозаписей из ВК без ограничений и рекламы.',
     bundleId: 'com.mail.moosic',
     source: 'Archive'
   },
   {
-    id: 'tiktok',
-    name: 'TikTok Mod',
-    category: 'social',
-    categoryName: 'Соцсети',
-    version: '35.0.0',
-    size: '230 MB',
-    badge: 'Без ограничений',
-    iconColor: '#000000',
-    iconText: '▶️',
-    desc: 'Модифицированная версия TikTok с возможностью смотреть свежие видео из любых регионов и выкладывать свои ролики.',
-    bundleId: 'com.zhiliaoapp.musically',
-    source: 'Mod Store'
+    id: 'spotify',
+    name: 'Spotify',
+    category: 'media',
+    categoryName: 'Музыка и видео',
+    version: '8.9.40',
+    size: '175 MB',
+    badge: 'Стриминг',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ce/b5/1c/ceb51c33-0a95-71bb-fa55-1563f6ebc45f/AppIcon-0-0-1x_U007emarketing-0-7-0-sRGB-85-220.png/512x512bb.jpg',
+    desc: 'Лучший музыкальный сервис в мире с непревзойденными алгоритмами рекомендаций подборок и треков.',
+    bundleId: 'com.spotify.client',
+    source: 'App Store'
   },
   {
     id: 'youtube',
@@ -153,12 +173,173 @@ const APPS = [
     categoryName: 'Музыка и видео',
     version: '19.20.0',
     size: '210 MB',
-    badge: 'Без рекламы',
-    iconColor: '#FF0000',
-    iconText: '📺',
-    desc: 'YouTube с функцией фонового воспроизведения, картинки-в-картинке (PiP) и вырезанной рекламой.',
+    badge: 'Премиум',
+    iconUrl: 'icons/youtube.svg',
+    desc: 'YouTube с функцией фонового воспроизведения при заблокированном экране, PiP (картинка-в-картинке) и без рекламы.',
     bundleId: 'com.google.ios.youtube',
     source: 'Custom IPA'
+  },
+  {
+    id: 'tiktok',
+    name: 'TikTok Mod',
+    category: 'media',
+    categoryName: 'Музыка и видео',
+    version: '35.0.0',
+    size: '230 MB',
+    badge: 'Все регионы',
+    iconUrl: 'icons/tiktok.svg',
+    desc: 'Модифицированный TikTok со встроенной сменой региона. Смотрите новые мировые тренды и публикуйте свои видео.',
+    bundleId: 'com.zhiliaoapp.musically',
+    source: 'Mod Store'
+  },
+
+  // СОЦСЕТИ И МЕССЕНДЖЕРЫ
+  {
+    id: 'vk',
+    name: 'ВКонтакте',
+    category: 'social',
+    categoryName: 'Соцсети',
+    version: '8.60.0',
+    size: '210 MB',
+    badge: 'Соцсеть',
+    iconUrl: 'icons/vk.svg',
+    desc: 'Официальный клиент ВКонтакте: лента новостей, мессенджер с видеозвонками, сообщества, мини-игры и VK Клипы.',
+    bundleId: 'com.vk.vkclient',
+    source: 'App Store (Оригинал)'
+  },
+  {
+    id: 'telegram',
+    name: 'Telegram Messenger',
+    category: 'social',
+    categoryName: 'Соцсети',
+    version: '10.14.0',
+    size: '160 MB',
+    badge: 'Мессенджер',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/2f/1b/e8/2f1be808-3e4c-9e2e-2a28-3e3cb98e404f/AppIcon-0-0-1x_U007emarketing-0-7-0-sRGB-85-220.png/512x512bb.jpg',
+    desc: 'Быстрый и защищенный мессенджер с облачным хранением файлов, каналами, группами и ботами.',
+    bundleId: 'ph.telegra.Telegraph',
+    source: 'App Store'
+  },
+  {
+    id: 'instagram',
+    name: 'Instagram',
+    category: 'social',
+    categoryName: 'Соцсети',
+    version: '335.0.0',
+    size: '190 MB',
+    badge: 'Фото',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/e3/33/79/e3337974-a4b5-68ae-8b2b-0bb5b128e469/AppIcon-0-0-1x_U007emarketing-0-7-0-sRGB-85-220.png/512x512bb.jpg',
+    desc: 'Официальное приложение Instagram: делитесь фото, снимайте Reels и общайтесь в Direct.',
+    bundleId: 'com.burbn.instagram',
+    source: 'App Store'
+  },
+  {
+    id: 'discord',
+    name: 'Discord',
+    category: 'social',
+    categoryName: 'Соцсети',
+    version: '228.0.0',
+    size: '185 MB',
+    badge: 'Общение',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6a/2f/ba/6a2fba87-e0d0-0a75-b613-258d4a66e60d/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
+    desc: 'Голосовые комнаты, текстовые каналы и стримы для геймеров и дружеских сообществ.',
+    bundleId: 'com.hammerandchisel.discord',
+    source: 'App Store'
+  },
+
+  // КАРТЫ И ТРАНСПОРТ
+  {
+    id: '2gis',
+    name: '2ГИС — Карты и навигатор',
+    category: 'nav',
+    categoryName: 'Карты и навигация',
+    version: '6.22.0',
+    size: '190 MB',
+    badge: 'Офлайн',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d7/b6/ef/d7b6efb0-23d9-3273-46de-0c3eb72658c3/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
+    desc: 'Точные подробные офлайн-карты городов, навигатор с подсказками по полосам и схемы этажей торговых центров.',
+    bundleId: 'ru.dublgis.2GIS',
+    source: 'App Store (Оригинал)'
+  },
+  {
+    id: 'rzd',
+    name: 'РЖД Пассажирам',
+    category: 'nav',
+    categoryName: 'Карты и навигация',
+    version: '3.12.0',
+    size: '150 MB',
+    badge: 'Билеты',
+    iconUrl: 'icons/rzd.svg',
+    desc: 'Покупка билетов на поезда дальнего следования и пригородные электрички без наценок и очередей.',
+    bundleId: 'ru.rzd.pass',
+    source: 'App Store (Оригинал)'
+  },
+  {
+    id: 'yandexmaps',
+    name: 'Яндекс Карты',
+    category: 'nav',
+    categoryName: 'Карты и навигация',
+    version: '17.4.0',
+    size: '220 MB',
+    badge: 'Навигатор',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/3e/67/23/3e6723e2-bbce-b5a0-d26b-29d28a38b29d/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
+    desc: 'Поиск мест, расписание городского транспорта в реальном времени и удобный автомобильный навигатор.',
+    bundleId: 'ru.yandex.traffic',
+    source: 'App Store'
+  },
+
+  // ИГРЫ
+  {
+    id: 'brawlstars',
+    name: 'Brawl Stars',
+    category: 'games',
+    categoryName: 'Игры',
+    version: '55.230',
+    size: '420 MB',
+    badge: 'Экшен',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b3/65/2d/b3652d49-c09e-7164-ce52-44df0e10b2df/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
+    desc: 'Динамичные командные бои 3-на-3 и королевская битва от Supercell с десятками уникальных бойцов.',
+    bundleId: 'com.supercell.brawlstars',
+    source: 'App Store'
+  },
+  {
+    id: 'minecraft',
+    name: 'Minecraft',
+    category: 'games',
+    categoryName: 'Игры',
+    version: '1.21.0',
+    size: '650 MB',
+    badge: 'Песочница',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fb/a7/be/fba7bef5-24e6-ee30-efee-c3d3170756e1/AppIcon-0-0-1x_U007emarketing-0-7-0-0-85-220-0.png/512x512bb.jpg',
+    desc: 'Стройте, исследуйте бесконечные процедурно генерируемые миры и выживайте в культовой игре от Mojang.',
+    bundleId: 'com.mojang.minecraftpe',
+    source: 'App Store'
+  },
+  {
+    id: 'roblox',
+    name: 'Roblox',
+    category: 'games',
+    categoryName: 'Игры',
+    version: '2.628.0',
+    size: '280 MB',
+    badge: 'Мультиплеер',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/05/b8/b8/05b8b8cc-14f7-873d-8869-705b6b198166/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
+    desc: 'Виртуальная вселенная, где можно играть в миллионы пользовательских режимов вместе с друзьями со всего мира.',
+    bundleId: 'com.roblox.robloxmobile',
+    source: 'App Store'
+  },
+  {
+    id: 'subwaysurfers',
+    name: 'Subway Surfers',
+    category: 'games',
+    categoryName: 'Игры',
+    version: '3.28.0',
+    size: '310 MB',
+    badge: 'Раннер',
+    iconUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7a/8d/4f/7a8d4f08-98e9-4e78-90b5-e63d3cb4ec78/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
+    desc: 'Бегите по железнодорожным путям, уворачивайтесь от приближающихся поездов и собирайте монеты.',
+    bundleId: 'com.kiloo.subwaysurfers',
+    source: 'App Store'
   }
 ];
 
@@ -201,8 +382,8 @@ function renderApps() {
   appsGrid.innerHTML = filtered.map(app => `
     <div class="app-card" onclick="openAppModal('${app.id}')">
       <div class="app-left">
-        <div class="app-icon" style="background: ${app.iconColor}20; border: 1px solid ${app.iconColor}40;">
-          <span>${app.iconText}</span>
+        <div class="app-icon">
+          <img src="${app.iconUrl}" alt="${app.name}" loading="lazy">
         </div>
         <div class="app-details">
           <span class="app-title">${app.name}</span>
@@ -255,9 +436,7 @@ window.openAppModal = function(appId) {
   activeModalApp = app;
   
   const iconEl = document.getElementById('modalAppIcon');
-  iconEl.style.background = `${app.iconColor}25`;
-  iconEl.style.border = `1px solid ${app.iconColor}50`;
-  iconEl.innerHTML = `<span>${app.iconText}</span>`;
+  iconEl.innerHTML = `<img src="${app.iconUrl}" alt="${app.name}">`;
 
   document.getElementById('modalAppName').textContent = app.name;
   document.getElementById('modalAppCategory').textContent = app.categoryName;
@@ -279,15 +458,14 @@ document.getElementById('startInstallBtn').addEventListener('click', () => {
   
   if (tg) {
     tg.showPopup({
-      title: `Установка ${activeModalApp.name}`,
-      message: `Готово к возврату! Сейчас откроется Safari для подтверждения официальной лицензии Apple ID. Нажмите «Продолжить».`,
+      title: `Возврат ${activeModalApp.name}`,
+      message: `Готово к установке! Сейчас откроется Safari для активации лицензии Apple ID. Нажмите «Продолжить».`,
       buttons: [
         { id: 'ok', type: 'default', text: 'Продолжить в Safari' },
         { type: 'cancel', text: 'Отмена' }
       ]
     }, (btnId) => {
       if (btnId === 'ok') {
-        // Deep link trigger for Apple Store / itms-services
         window.open(`https://apple.com`, '_blank');
       }
     });

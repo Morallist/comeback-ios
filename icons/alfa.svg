@@ -1,0 +1,6 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="115" fill="#EF3124"/>
+  <!-- Alfa 'A' with underline -->
+  <path d="M256 120 L350 330 H300 L256 220 L212 330 H162 Z" fill="#FFFFFF"/>
+  <rect x="162" y="360" width="188" height="32" rx="6" fill="#FFFFFF"/>
+</svg>
